@@ -27,7 +27,28 @@ def blackmoves():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    makeboard()
+    #mkaing board
+    board = Board()
+    board.makeboard()
+
+    iswhitemove= True
+
+    while True:
+        if iswhitemove == True:
+            print("Whites Move")
+        else:
+            print("Blacks Move")
+        selectedpice = input("selcect the player you want to move ")
+        moveloaction = input("where do you want to move ")
+
+        if board.isValid(iswhitemove, selectedpice, moveloaction):
+            board.move(selectedpice, moveloaction)
+            iswhitemove = not iswhitemove
+            board.makeboard()
+        else:
+            print("That move was inValid")
+
+
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -34,17 +34,30 @@ class Board:
         ]
         # "a2"        "a4"
 
-    def move(self, from_lastLoaction, to_newLoaction):
-        wselectedpice = input("selcect the player you want to move")
-        wmoveloaction = input("where do you want to move")
+    def makeboard(self):
+        boardnumber = 0
+        for row in self.board:
+            boardnumber += 1
+            print(boardnumber, end="| ")
+            for square in row:
+                print(square, end=" ")
+            print("")
+        print("-------------------")
+        print("   a b c d e f g h ")
 
+
+    def move(self, selectedpice, moveloaction):
         # A1
         # wselectedpice[0] # A1 = AS
         # wselectedpice[1] # A1 = 1
 
-        pickedup = self.board[vertical[wselectedpice[1]]][horizonal[wselectedpice[0]]]
-        self.board[vertical[wselectedpice[1]]][horizonal[wselectedpice[0]]] = "."
-        self.board[vertical[wselectedpice[1]]][horizonal[wselectedpice[0]]] = pickedup
+
+                            #vertical = selected piace
+        pickedup = self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]]
+        self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]] = "."
+        self.board[vertical[moveloaction[1]]][horizonal[moveloaction[0]]] = pickedup
+
+
 
         # self.board[3][0]
         #
@@ -57,6 +70,31 @@ class Board:
         # self.board[]
         #
         # from_lastLoactio
+
+    def isValid(self, iswhitemove, selectedpice, moveloaction):
+        # Validate the selcted peice is the right colour
+        peice = self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]]
+        movedto = self.board[vertical[moveloaction[1]]][horizonal[moveloaction[0]]]
+        if peice == ".":
+            return False
+
+        if iswhitemove and peice.islower():
+            #invald as white is upper case
+            return False
+
+        if not iswhitemove and peice.isupper():
+            #invald as Black is lower case
+            return False
+
+        # Validate the move location is either empty or the opposite colour
+        if iswhitemove and movedto != "." and movedto.isupper():
+            return False
+        if not iswhitemove and movedto != "." and movedto.islower():
+            return False
+
+        return True
+
+        pass
 
 
 
