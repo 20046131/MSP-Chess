@@ -1,4 +1,5 @@
 from board import *
+from saveFile import SaveFile
 
 
 def makeboard():
@@ -30,6 +31,8 @@ if __name__ == '__main__':
     #mkaing board
     board = Board()
     board.makeboard()
+    file = SaveFile()
+    file.save(board)
 
     iswhitemove= True
 
@@ -45,6 +48,7 @@ if __name__ == '__main__':
             board.move(selectedpice, moveloaction)
             iswhitemove = not iswhitemove
             board.makeboard()
+
         else:
             print("That move was inValid")
 
