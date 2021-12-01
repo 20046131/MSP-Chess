@@ -25,14 +25,14 @@ vertical = {
 class Board:
     def __init__(self):
         self.board = [
-            ['R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R'],
+            ['R', '.', '.', 'K', '.', '.', '.', 'R'],
             ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-            ['r', 'n', 'b', 'k', 'q', 'b', 'n', 'r']
+            ['r', '.', '.', 'k', '.', '.', '.', 'r']
         ]
         # "a2"        "a4"
 
@@ -114,6 +114,63 @@ class Board:
         return True
 
         pass
+
+    def isValidCastle(self, iswhitemove, iskingside ):
+        if iswhitemove and iskingside:
+            return  self.board[0][1]=="." and self.board[0][2] == "." and self.board[0][0] == "R"and self.board[0][3] == "K"
+        if iswhitemove and not iskingside:
+            return self.board[0][6] == "." and self.board[0][5] == "." and self.board[0][4] == "." and self.board[0][7] == "R" and self.board[0][3] == "K"
+        if not iswhitemove and iskingside:
+            return self.board[7][1] == "." and self.board[7][2] == "." and self.board[7][0] == "r" and self.board[7][3] == "k"
+        if not iswhitemove and not iskingside:
+            return self.board[7][6] == "." and self.board[7][5] == "." and self.board[7][4] == "." and self.board[7][7] == "r" and self.board[7][3] == "k"
+
+
+
+    def castle (self, iswhitemove, iskingside ):
+        file = SaveFile()
+        if iswhitemove and iskingside:
+            self.board[0][1] = "K"
+            self.board[0][2] = "R"
+            self.board[0][0] = "."
+            self.board[0][3] = "."
+            file.update("K", 0, 1)
+            file.update("R", 0, 2)
+            file.update(".", 0, 0)
+            file.update(".", 0, 3)
+
+        if iswhitemove and not iskingside:
+            self.board[0][6] = "."
+            self.board[0][5] = "K"
+            self.board[0][4] = "R"
+            self.board[0][7] = "."
+            self.board[0][3] = "."
+            file.update(".", 0, 6)
+            file.update("K", 0, 5)
+            file.update("R", 0, 4)
+            file.update(".", 0, 7)
+            file.update(".", 0, 3)
+        if not iswhitemove and iskingside:
+            self.board[7][1] = "k"
+            self.board[7][2] = "r"
+            self.board[7][0] = "."
+            self.board[7][3] = "."
+            file.update("k", 7, 1)
+            file.update("r", 7, 2)
+            file.update(".", 7, 0)
+            file.update(".", 7, 3)
+        if not iswhitemove and not iskingside:
+            self.board[7][6] = "."
+            self.board[7][5] = "k"
+            self.board[7][4] = "r"
+            self.board[7][7] = "."
+            self.board[7][3] = "."
+            file.update(".", 7, 6)
+            file.update("k", 7, 5)
+            file.update("r", 7, 4)
+            file.update(".", 7, 7)
+            file.update(".", 7, 3)
+
 
 
 

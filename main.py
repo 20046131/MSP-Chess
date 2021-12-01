@@ -41,16 +41,31 @@ if __name__ == '__main__':
             print("Whites Move")
         else:
             print("Blacks Move")
-        selectedpice = input("selcect the player you want to move ")
-        moveloaction = input("where do you want to move ")
-
-        if board.isValid(iswhitemove, selectedpice, moveloaction):
-            board.move(selectedpice, moveloaction)
-            iswhitemove = not iswhitemove
-            board.makeboard()
-
+        selectedpice = input("selcect the player you want to move ").lower()
+        if selectedpice == ("o-o"):
+            if board.isValidCastle(iswhitemove, True):
+                board.castle(iswhitemove, True)
+                iswhitemove = not iswhitemove
+                board.makeboard()
+            else:
+                print("That move was inValid")
+        elif selectedpice ==("o-o-o"):
+            if board.isValidCastle(iswhitemove, False):
+                board.castle(iswhitemove, False)
+                iswhitemove = not iswhitemove
+                board.makeboard()
+            else:
+                print("That move was inValid")
         else:
-            print("That move was inValid")
+            moveloaction = input("where do you want to move ")
+
+            if board.isValid(iswhitemove, selectedpice, moveloaction):
+                board.move(selectedpice, moveloaction)
+                iswhitemove = not iswhitemove
+                board.makeboard()
+
+            else:
+                print("That move was inValid")
 
 
 
