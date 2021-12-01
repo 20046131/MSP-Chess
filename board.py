@@ -1,3 +1,5 @@
+from saveFile import SaveFile
+
 horizonal = {
     "a": 0,
     "b": 1,
@@ -45,6 +47,13 @@ class Board:
         print("-------------------")
         print("   a b c d e f g h ")
 
+    def tostring(self):
+        stringgameboard = ""
+        for row in self.board:
+            for square in row:
+                stringgameboard += square
+
+        return stringgameboard
 
     def move(self, selectedpice, moveloaction):
         # A1
@@ -57,7 +66,17 @@ class Board:
         self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]] = "."
         self.board[vertical[moveloaction[1]]][horizonal[moveloaction[0]]] = pickedup
 
-
+        file = SaveFile()
+        # Update the selectedpice
+        row = vertical[selectedpice[1]]
+        col = horizonal[selectedpice[0]]
+        val = "."
+        file.update(val, row, col)
+        # Update the moveloaction
+        row = vertical[moveloaction[1]]
+        col = horizonal[moveloaction[0]]
+        val = pickedup
+        file.update(val, row, col)
 
         # self.board[3][0]
         #
