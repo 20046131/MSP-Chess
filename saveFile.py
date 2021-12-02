@@ -2,7 +2,7 @@ class SaveFile:
     def __init__(self):
         self.filename = "GameBoard.txt"
 
-    #createsthe file and will save the start og the game
+    # Creates the file and will save the start of the game
     def save(self, board):
         try:
             with open(self.filename, mode='w') as file:
@@ -10,6 +10,7 @@ class SaveFile:
         except Exception as error:
             print("Error writing to file: " + str(error))
 
+    # Will update the file during the game
     def update(self, value, row, coll):
         try:
             with open(self.filename, mode='r+')as file:
