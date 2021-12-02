@@ -28,12 +28,3 @@ board[1][0] = "."
 board[3][0] = pickedup
 
 makeboard()
-
-
-
-if user input == 0-0
-    check itwite move is ture
-    move  1c-b1
-
-    eslse
-    move b8 c8
