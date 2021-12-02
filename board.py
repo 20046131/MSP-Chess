@@ -1,5 +1,5 @@
 from saveFile import SaveFile
-
+# Creates a dictionary that will convert a user's input
 horizonal = {
     "a": 0,
     "b": 1,
@@ -21,21 +21,21 @@ vertical = {
     "8": 7
 }
 
-
 class Board:
     def __init__(self):
+        # Creates a board in a 2D array
         self.board = [
-            ['R', '.', '.', 'K', '.', '.', '.', 'R'],
+            ['R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R'],
             ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['.', '.', '.', '.', '.', '.', '.', '.'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-            ['r', '.', '.', 'k', '.', '.', '.', 'r']
+            ['r', 'n', 'b', 'k', 'q', 'b', 'n', 'r']
         ]
-        # "a2"        "a4"
 
+    # Adds spaces and a border around the board
     def makeboard(self):
         boardnumber = 0
         for row in self.board:
@@ -47,6 +47,7 @@ class Board:
         print("-------------------")
         print("   a b c d e f g h ")
 
+    # Makes the game board into a string to make it easier to move pieces
     def tostring(self):
         stringgameboard = ""
         for row in self.board:
@@ -56,14 +57,11 @@ class Board:
         return stringgameboard
 
     def move(self, selectedpice, moveloaction):
-        # A1
-        # wselectedpice[0] # A1 = AS
-        # wselectedpice[1] # A1 = 1
-
-
-                            #vertical = selected piace
+        #                    using the dictionary it will convert the user's input the the correct coordinates
         pickedup = self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]]
+        # Update the orignal pieces the be emtpy
         self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]] = "."
+        # will update the bard to new pieces location
         self.board[vertical[moveloaction[1]]][horizonal[moveloaction[0]]] = pickedup
 
         file = SaveFile()
@@ -72,26 +70,14 @@ class Board:
         col = horizonal[selectedpice[0]]
         val = "."
         file.update(val, row, col)
-        # Update the moveloaction
+        # Update the move loaction
         row = vertical[moveloaction[1]]
         col = horizonal[moveloaction[0]]
         val = pickedup
         file.update(val, row, col)
 
-        # self.board[3][0]
-        #
-        # from_row #  1
-        # from_col #  0
-        #
-        # to_row    # 3
-        # to_column # 0
-        #
-        # self.board[]
-        #
-        # from_lastLoactio
-
+        # Validate the selected piece is the right colour
     def isValid(self, iswhitemove, selectedpice, moveloaction):
-        # Validate the selcted peice is the right colour
         peice = self.board[vertical[selectedpice[1]]][horizonal[selectedpice[0]]]
         movedto = self.board[vertical[moveloaction[1]]][horizonal[moveloaction[0]]]
         if peice == ".":
@@ -115,9 +101,10 @@ class Board:
 
         pass
 
+    # Will validate that the king and castle is in the correct spot and no peaces anre in between them  for both Colour
     def isValidCastle(self, iswhitemove, iskingside ):
         if iswhitemove and iskingside:
-            return  self.board[0][1]=="." and self.board[0][2] == "." and self.board[0][0] == "R"and self.board[0][3] == "K"
+            return self.board[0][1] =="." and self.board[0][2] == "." and self.board[0][0] == "R"and self.board[0][3] == "K"
         if iswhitemove and not iskingside:
             return self.board[0][6] == "." and self.board[0][5] == "." and self.board[0][4] == "." and self.board[0][7] == "R" and self.board[0][3] == "K"
         if not iswhitemove and iskingside:
@@ -125,9 +112,8 @@ class Board:
         if not iswhitemove and not iskingside:
             return self.board[7][6] == "." and self.board[7][5] == "." and self.board[7][4] == "." and self.board[7][7] == "r" and self.board[7][3] == "k"
 
-
-
-    def castle (self, iswhitemove, iskingside ):
+    # Will update the board to dispaly the castle for both colour
+    def castle(self, iswhitemove, iskingside):
         file = SaveFile()
         if iswhitemove and iskingside:
             self.board[0][1] = "K"
@@ -138,7 +124,6 @@ class Board:
             file.update("R", 0, 2)
             file.update(".", 0, 0)
             file.update(".", 0, 3)
-
         if iswhitemove and not iskingside:
             self.board[0][6] = "."
             self.board[0][5] = "K"
@@ -170,7 +155,3 @@ class Board:
             file.update("r", 7, 4)
             file.update(".", 7, 7)
             file.update(".", 7, 3)
-
-
-
-

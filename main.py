@@ -2,30 +2,6 @@ from board import *
 from saveFile import SaveFile
 
 
-def makeboard():
-    boardnumber = 0
-    for row in Board:
-        boardnumber += 1
-        print(boardnumber, end="| ")
-        for square in row:
-            print(square, end=" ")
-        print("")
-    print("-------------------")
-    print("   a b c d e f g h ")
-
-
-def whitemoves():
-    wselectedpice = input("selcect the player you want to move")
-    wmoveloaction = input("where do you want to move")
-
-
-def blackmoves():
-    bselectedpice = input("selcect the player you want to move")
-    bmoveloaction = input("where do you want to move")
-
-
-
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     #mkaing board
@@ -37,19 +13,23 @@ if __name__ == '__main__':
     iswhitemove= True
 
     while True:
+        # Will keep track of whose turn it is
         if iswhitemove == True:
             print("Whites Move")
         else:
             print("Blacks Move")
+        # Will lower the users input
         selectedpice = input("selcect the player you want to move ").lower()
         if selectedpice == ("o-o"):
+            # if o-o is entered it will check it the spots are available and if so it will make the move
             if board.isValidCastle(iswhitemove, True):
                 board.castle(iswhitemove, True)
                 iswhitemove = not iswhitemove
                 board.makeboard()
             else:
                 print("That move was inValid")
-        elif selectedpice ==("o-o-o"):
+        elif selectedpice == ("o-o-o"):
+            # if o-o-o is entered it will check it the spots are available and if so it will make the move
             if board.isValidCastle(iswhitemove, False):
                 board.castle(iswhitemove, False)
                 iswhitemove = not iswhitemove
@@ -57,14 +37,17 @@ if __name__ == '__main__':
             else:
                 print("That move was inValid")
         else:
+            #if it not calling it will get the ask for the place for the pace
             moveloaction = input("where do you want to move ")
 
             if board.isValid(iswhitemove, selectedpice, moveloaction):
+                # will check if the move is vaild and will reprint the board
                 board.move(selectedpice, moveloaction)
                 iswhitemove = not iswhitemove
                 board.makeboard()
 
             else:
+                # it ether it own peace or not a proper move
                 print("That move was inValid")
 
 
